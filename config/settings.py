@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_af#&ojv9bboy)dhsq(s1b9n1*8y&8*5qcg83@5fh6#i%nfu75'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -144,3 +144,5 @@ CKEDITOR_5_CONFIGS = {
         ],
     }
 }
+
+STATIC_ROOT = BASE_DIR / "staticfiles" 
