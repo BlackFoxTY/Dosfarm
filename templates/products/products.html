@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-wrapper">
+    <h1 class="page-title">
+        Продукция
+    </h1>
+
+    <div class="categories-grid">
+        {% for category in categories %}
+        <a href="{% url 'category_detail' category.slug %}" class="category-card">
+            <div class="category-circle">
+                <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-image">
+            </div>
+            <h3 class="category-name">{{ category.name }}</h3>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

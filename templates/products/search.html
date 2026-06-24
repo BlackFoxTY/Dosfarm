@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-wrapper">
+
+    <h1 class="page-title">Результаты поиска: "{{ query }}"</h1>
+
+    {% if results %}
+    <table class="products-table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in results %}
+            <tr class="product-row" onclick="location.href='{% url 'product_detail' product.category.slug product.slug %}'">
+                <td class="product-td-left">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-table-image">
+                    <span class="product-table-name">{{ product.name }}</span>
+                </td>
+                <td class="product-td-right">
+                    <p>{{ product.short_description }}</p>
+                    <span class="prescription-badge {% if product.prescription == 'rx' %}rx{% else %}otc{% endif %}">
+                        {% if product.prescription == 'rx' %}ПО РЕЦЕПТУ{% else %}БЕЗ РЕЦЕПТА{% endif %}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="search-empty">Ничего не найдено по запросу "{{ query }}"</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

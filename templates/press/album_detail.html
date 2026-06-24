@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="page-title">{{ album.title }}</h1>
+    <div class="photos-grid">
+        {% for photo in photos %}
+        <a href="{{ photo.image.url }}" target="_blank" class="photo-item">
+            <img src="{{ photo.image.url }}" alt="{{ album.title }}">
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

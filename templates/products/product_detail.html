@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="desc-flex-container">
+        <div class="short-description">
+
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-decs-image">
+    
+            <div class="blue-line"></div>
+    
+            <div class="short-discription-column">
+                <h2 class="product-name">{{ product.name }}</h2>
+    
+                <p>{{ product.short_description }}</p>
+    
+                <p class="prescription-box">
+                    Отпускается: 
+                    <span class="prescription-badge {% if product.prescription == 'rx' %}rx{% else %}otc{% endif %}">
+                        {% if product.prescription == 'rx' %}ПО РЕЦЕПТУ{% else %}БЕЗ РЕЦЕПТА{% endif %}
+                    </span>
+                </p>
+    
+                <p class="farm-group-box">
+                    Фарм. группа: 
+                    <a href="{% url 'category_detail' category.slug %}" class="category-name-desc">{{ category.name }}</a>
+                </p>
+    
+                <div class="application">
+                    {{ product.application|safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="instruction-box">
+            <a href="{{ product.instruction_file.url }}" class="instruction" target="_blank">
+                <img src="{% static 'img/download.png' %}" alt="" class="instruction-img">
+                Скачать инструкцию по применению препарата
+            </a>
+        </div>
+
+        {% if product.details.sections %}
+        <div class="accordion">
+            {% for section in product.details.sections %}
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>{{ section.title }}</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="accordion-body">
+                    <p>{{ section.content }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+<script>
+function toggleAccordion(btn) {
+    const item = btn.parentElement;
+    const body = item.querySelector('.accordion-body');
+    const isOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.accordion-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.accordion-body').style.maxHeight = null;
+    });
+
+    if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+    }
+}
+</script>
+{% endblock %}

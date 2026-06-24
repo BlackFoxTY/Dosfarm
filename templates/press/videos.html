@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="page-title">Видео</h1>
+    <div class="videos-grid">
+        {% for video in videos %}
+        <div class="video-card">
+            <a href="{{ video.youtube_url }}" target="_blank" class="youtube-preview">
+                <img src="{{ video.get_preview_url }}" alt="{{ video.title }}">
+                <div class="youtube-play">▶</div>
+            </a>
+            <div class="video-card-body">
+                <p class="video-title">{{ video.title }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if videos.has_other_pages %}
+    <div class="pagination">
+        {% if videos.has_previous %}
+        <a href="?page={{ videos.previous_page_number }}" class="page-btn">← Назад</a>
+        {% endif %}
+
+        {% for num in videos.paginator.page_range %}
+        <a href="?page={{ num }}" class="page-btn {% if num == videos.number %}active{% endif %}">{{ num }}</a>
+        {% endfor %}
+
+        {% if videos.has_next %}
+        <a href="?page={{ videos.next_page_number }}" class="page-btn">Вперёд →</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

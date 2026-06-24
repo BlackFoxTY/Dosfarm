@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- HERO -->
+<div class="content-wrapper">
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Первый производитель<br>BFS-технологий в Казахстане</h1>
+            <p class="hero-subtitle">АО «Досфарм» — казахстанский фармацевтический завод, первым в Республике Казахстан освоивший технологию Blow-Fill-Seal для производства стерильных лекарственных препаратов.</p>
+            <div class="hero-buttons">
+                <a href="/products/" class="btn-primary">Наша продукция</a>
+                <a href="/bfs/" class="btn-secondary">О технологии BFS</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- О КОМПАНИИ -->
+    <div class="home-section">
+        <div class="content-wrapper">
+            <div class="home-about">
+                <div class="home-about-text">
+                    <span class="section-label">О компании</span>
+                    <h2 class="section-title">Качество и безопасность — наш приоритет</h2>
+                    <p>Производство осуществляется на современном оборудовании швейцарской компании Rommelag в соответствии со стандартами GMP. Все препараты производятся без консервантов, что гарантирует безопасность для пациентов.</p>
+                    <a href="/company/" class="btn-primary" style="margin-top: 16px; display: inline-block;">Подробнее</a>
+                </div>
+                <div class="home-about-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">20+</span>
+                        <span class="stat-label">лет на рынке</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">наименований препаратов</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">№1</span>
+                        <span class="stat-label">BFS в Казахстане</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">GMP</span>
+                        <span class="stat-label">сертифицировано</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- ПРОДУКЦИЯ -->
+<div class="home-section home-section-gray">
+    <div class="content-wrapper">
+        <span class="section-label">Продукция</span>
+        <h2 class="section-title">Наименования препаратов</h2>
+
+        <div id="productsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for product in products %}
+                    {% if forloop.counter0|divisibleby:3 %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="articles-grid">
+                    {% endif %}
+
+                            <a href="{% url 'product_detail' product.category.slug product.slug %}" class="article-card">
+                                <div class="article-image-wrapper">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="article-image">
+                                    {% endif %}
+                                </div>
+                                <div class="article-card-body">
+                                    <h3 class="article-card-title">{{ product.name }}</h3>
+                                    <p class="article-card-text">{{ product.short_description|truncatechars:100 }}</p>
+                                    <span class="prescription-badge {% if product.prescription == 'rx' %}rx{% else %}otc{% endif %}">
+                                        {% if product.prescription == 'rx' %}ПО РЕЦЕПТУ{% else %}БЕЗ РЕЦЕПТА{% endif %}
+                                    </span>
+                                </div>
+                            </a>
+
+                    {% if forloop.counter|divisibleby:3 or forloop.last %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#productsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+
+        <div class="section-more">
+            <a href="/products/" class="btn-outline">Все препараты →</a>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ПРЕСС-ЦЕНТР -->
+<div class="home-section">
+    <div class="content-wrapper">
+        <span class="section-label">Пресс-центр</span>
+        <h2 class="section-title">Последние новости</h2>
+        <div class="articles-grid">
+            {% for article in press_articles %}
+            <a href="{% url 'press_article_detail' article.slug %}" class="article-card">
+                <div class="article-image-wrapper">
+                    {% if article.image %}
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
+                    {% endif %}
+                </div>
+                <div class="article-card-body">
+                    <h3 class="article-card-title">{{ article.title }}</h3>
+                    <p class="article-card-text">{{ article.short_description|truncatechars:120 }}</p>
+                    <span class="read-more">Подробнее →</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="section-more">
+            <a href="/press/articles/" class="btn-outline">Все новости →</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

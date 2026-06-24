@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="page-title">{{ article.title }}</h1>
+    <!-- {% if article.image %}
+    <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-detail-image">
+    {% endif %} -->
+    <div class="article-body">
+        {{ article.content|safe }}
+    </div>
+</div>
+{% endblock %}

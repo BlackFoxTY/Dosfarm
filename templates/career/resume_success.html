@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="success-message">
+        <h1 class="page-title">Резюме отправлено!</h1>
+        <p>Спасибо! Мы рассмотрим ваше резюме и свяжемся с вами в ближайшее время.</p>
+        <a href="{% url 'career' %}" class="btn-primary">Вернуться к вакансиям</a>
+    </div>
+</div>
+{% endblock %}

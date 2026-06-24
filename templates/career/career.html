@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-wrapper">
+    <h1 class="page-title">Карьера</h1>
+
+    <div class="career-header">
+        <a href="{% url 'resume_submit' %}" class="btn-primary">Отправить резюме</a>
+    </div>
+
+    {% if vacancies %}
+    <div class="vacancies-grid">
+        {% for vacancy in vacancies %}
+        <a href="{% url 'vacancy_detail' vacancy.pk %}" class="vacancy-card">
+            <div class="vacancy-card-header">
+                <h3 class="vacancy-title">{{ vacancy.title }}</h3>
+                <span class="vacancy-city">📍 {{ vacancy.city }}</span>
+            </div>
+            <span class="vacancy-date">{{ vacancy.created_at|date:"d.m.Y" }}</span>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-vacancies">Открытых вакансий пока нет</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

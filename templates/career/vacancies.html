@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-wrapper">
+
+    <div class="career-header">
+        <h1 class="page-title">Вакансии</h1>
+    </div>
+
+    {% if vacancies %}
+    <div class="vacancies-list">
+        {% for vacancy in vacancies %}
+        <a href="{% url 'vacancy_detail' vacancy.pk %}" class="vacancy-card-big">
+            <div class="vacancy-card-big-header">
+                <h2 class="vacancy-card-big-title">{{ vacancy.title }}</h2>
+                <span class="vacancy-city">📍 {{ vacancy.city }}</span>
+            </div>
+            <div class="vacancy-card-big-footer">
+                <span class="vacancy-date">{{ vacancy.created_at|date:"d.m.Y" }}</span>
+                <span class="vacancy-link">Подробнее →</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-vacancies">Открытых вакансий пока нет</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

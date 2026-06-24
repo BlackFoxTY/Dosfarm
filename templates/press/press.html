@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-wrapper">
+
+    <h1 class="page-title">Пресс-центр</h1>
+
+    <div class="categories-grid">
+
+        <a href="/press/articles/" class="category-card">
+            <div class="category-circle press-category">
+                <img src="{% static 'img/IMG_2747.PNG' %}" alt="Пресса о нас">
+            </div>
+            <p class="category-name">Пресса о нас</p>
+        </a>
+
+        <a href="/press/awards/" class="category-card">
+            <div class="category-circle press-category">
+                <img src="{% static 'img/icons8-the-oscars-96.png' %}" alt="Наши награды">
+            </div>
+            <p class="category-name">Наши награды</p>
+        </a>
+
+        <a href="/press/photos/" class="category-card">
+            <div class="category-circle press-category">
+                <img src="{% static 'img/icons8-gallery-96.png' %}" alt="Фототека">
+            </div>
+            <p class="category-name">Фототека</p>
+        </a>
+
+        <a href="/press/videos/" class="category-card">
+            <div class="category-circle press-category">
+                <img src="{% static 'img/icons8-video-96.png' %}" alt="Видео">
+            </div>
+            <p class="category-name">Видео</p>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-wrapper">
+    <h1 class="page-title">{{ vacancy.title }}</h1>
+
+    <div class="vacancy-header">
+        <span class="vacancy-city">📍 {{ vacancy.city }}</span>
+        <div class="vacancy-body">
+            {{ vacancy.requirements|safe }}
+        </div>
+        <div>
+            <a href="{% url 'resume_submit' %}?position={{ vacancy.title }}" class="btn-primary">
+                Откликнуться
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="page-title">Пресса о нас</h1>
+    <div class="articles-grid">
+        {% for article in articles %}
+        <a href="{% url 'press_article_detail' article.slug %}" class="article-card">
+            <div class="article-image-wrapper">
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
+            </div>
+            <div class="article-card-body">
+                <h3 class="article-card-title">{{ article.title }}</h3>
+                <p class="article-card-text">{{ article.short_description|truncatechars:150 }}</p>
+                <span class="read-more">Подробнее →</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
